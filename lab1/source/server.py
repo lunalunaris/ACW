@@ -17,7 +17,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
             now = datetime.now()
-            cur_time = now.strftime("%HH:%MM:%ss")
+            cur_time=now.strftime("%H:%M:%s")
             self.wfile.write(b"Hello World!<br>\n")
             self.wfile.write(str.encode(""+cur_time+"\n"))
         else:
