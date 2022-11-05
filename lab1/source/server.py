@@ -18,8 +18,8 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             now = datetime.now()
             cur_time = now.strftime("%HH:%MM:%ss")
-            self.wfile.write(b"Hello World!\n")
-            self.wfile.write(cur_time + '\n')
+            self.wfile.write(b"Hello World!<br>\n")
+            self.wfile.write(b"{cur_time} \n")
         else:
             super().do_GET()
     
