@@ -19,7 +19,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             now = datetime.now()
             cur_time = now.strftime("%HH:%MM:%ss")
             self.wfile.write(b"Hello World!<br>\n")
-            self.wfile.write(bytes(" %s " % cur_time))
+            self.wfile.write(str.encode(""+cur_time+"\n"))
         else:
             super().do_GET()
     
