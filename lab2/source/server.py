@@ -32,9 +32,10 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                 cur_time = now.strftime("%H:%M:%S")
                 self.wfile.write(str.encode(""+cur_time+"\n"))
             elif 'cmd=rev' in tmp:
-                if 'str' in tmp:
+                if 'str=' in tmp:
                     tmp.replace('cmd=rev','')
                     tmp.replace('&','')
+                    tmp.replace('str=')
                     tmp= tmp[::-1]
                     self.wfile.write(str.encode(tmp))
                     
