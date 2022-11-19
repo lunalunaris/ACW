@@ -13,14 +13,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
         params = os.environ.get('QUERY_STRING')
         print(params)
         if self.path == '/':
+            
             self.protocol_version = 'HTTP/1.1'
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-         //   timeWarsaw = pytz.timezone('Europe/Warsaw')
             now = datetime.now()
             cur_time = now.strftime("%H:%M:%S")
-            self.wfile.write(b"Hello World!<br>\n")
+            if params == 'test':
+                self.wfile.write(b"Hello World!<br>\n")
             self.wfile.write(str.encode(""+cur_time+"\n"))
         else:
             super().do_GET()
