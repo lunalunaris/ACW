@@ -2,6 +2,7 @@
 import http.server
 import socketserver
 import os
+import urlparse
 from datetime import datetime
 #print('source code for "http.server":', http.server.__file__)
 
@@ -9,7 +10,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
 
-        params = os.environ.get('QUERY_STRING')
+    
         if self.path == '/':
             
             self.protocol_version = 'HTTP/1.1'
