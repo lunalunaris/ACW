@@ -9,9 +9,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
 
-        
         params = os.environ.get('QUERY_STRING')
-        print(params)
         if self.path == '/':
             
             self.protocol_version = 'HTTP/1.1'
@@ -20,10 +18,11 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             now = datetime.now()
             cur_time = now.strftime("%H:%M:%S")
-            
-            self.wfile.write(b"Hello World!<br>\n")
-            array=params.split("=")
-            if params == 'time':
+            if params==None:
+                self.wfile.write(b"Hello World!<br>\n")
+
+            if params:
+                array=params.split("=")
                 self.wfile.write(str.encode(""+cur_time+"\n"))
                 self.wfile.write(str.encode(params))
         else:
