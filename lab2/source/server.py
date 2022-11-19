@@ -2,7 +2,6 @@
 import http.server
 import socketserver
 import os
-import pytz
 from datetime import datetime
 #print('source code for "http.server":', http.server.__file__)
 
@@ -11,14 +10,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
 
         print(self.path)
-        
+        params = os.environ.get('QUERY_STRING')
+        print(params)
         if self.path == '/':
             self.protocol_version = 'HTTP/1.1'
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-            timeWarsaw = pytz.timezone('Europe/Warsaw')
-            now = datetime.now(timeWarsaw)
+         //   timeWarsaw = pytz.timezone('Europe/Warsaw')
+            now = datetime.now()
             cur_time = now.strftime("%H:%M:%S")
             self.wfile.write(b"Hello World!<br>\n")
             self.wfile.write(str.encode(""+cur_time+"\n"))
