@@ -27,12 +27,17 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
             pathTemp, tmp = self.path.split('?', 1)
-            if 'time' in tmp:
+            if 'cmd=time' in tmp:
                 now = datetime.now()
                 cur_time = now.strftime("%H:%M:%S")
                 self.wfile.write(str.encode(""+cur_time+"\n"))
-            elif 'rev' in tmp:
-                self.wfile.write(str.encode(tmp))
+            elif 'cmd=rev' in tmp:
+                if 'str' in tmp:
+                    tmp.replace('cmd=rev','')
+                    tmp.replace('&','')
+                    tmp= tmp[::-1]
+                    self.wfile.write(str.encode(tmp))
+                    
 
         else:
             super().do_GET()
