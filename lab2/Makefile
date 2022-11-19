@@ -6,7 +6,7 @@ docker_build:
 	docker build -t $(docker_name):latest .
 docker_start:
 	echo "Start docker here..."
-	docker run -p 4080:4080 --name $(container_name) $(docker_name):latest &
+	docker run -e TZ=Europe/Warsaw -p 4080:4080 --name $(container_name) $(docker_name):latest &
 docker_stop:
 	echo "Stop docker here..."
 	docker kill $(container_name)

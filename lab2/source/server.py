@@ -21,10 +21,11 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             if params==None:
                 self.wfile.write(b"Hello World!<br>\n")
 
-            if params:
-                array=params.split("=")
-                self.wfile.write(str.encode(""+cur_time+"\n"))
-                self.wfile.write(str.encode(params))
+
+        elif "?" in self.path:
+            array=params.split("=")
+            self.wfile.write(str.encode(""+cur_time+"\n"))
+            self.wfile.write(str.encode(params))
         else:
             super().do_GET()
     
