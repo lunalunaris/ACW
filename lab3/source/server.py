@@ -2,7 +2,7 @@
 import http.server
 import socketserver
 import os
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote_plus
 from datetime import datetime
 #print('source code for "http.server":', http.server.__file__)
 
@@ -26,7 +26,10 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
             parts = urlparse(self.path)
-                    
+            qs = parts.query
+            pairs = [p.split("=", 1) for p in qs.split("&")]
+            decoded = [(unquote_plus(k), unquote_plus(v)) for (k, v) in pairs]
+
 
         else:
             super().do_GET()
