@@ -17,8 +17,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-            if params==None:
-                self.wfile.write(b"Hello World!<br>\n")
+            self.wfile.write(b"Hello World!<br>\n")
 
 
         elif "?" in self.path:
