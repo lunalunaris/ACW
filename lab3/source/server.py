@@ -10,7 +10,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
     
     def do_GET(self):
 
-    
+   
         if self.path == '/':
             
             self.protocol_version = 'HTTP/1.1'
@@ -25,11 +25,11 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-            parts = urlparse(self.path)
+            parts = urlparse('http://localhost:4080'+self.path)
             qs = parts.query
             pairs = [p.split("=", 1) for p in qs.split("&")]
             decoded = [(unquote_plus(k), unquote_plus(v)) for (k, v) in pairs]
-
+            self.wfile.write(str.encode(decoded[0][1]))
 
         else:
             super().do_GET()
