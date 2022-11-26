@@ -2,6 +2,7 @@
 import http.server
 import socketserver
 import os
+import re
 from urllib.parse import urlparse, unquote_plus
 from datetime import datetime
 #print('source code for "http.server":', http.server.__file__)
@@ -17,7 +18,7 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()
-            self.wfile.write(b"Hello World!<br>\n")
+            self.wfile.write(b"Hello World!\n")
 
 
         elif "?" in self.path:
@@ -30,6 +31,16 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             pairs = [p.split("=", 1) for p in qs.split("&")]
             decoded = [(unquote_plus(k), unquote_plus(v)) for (k, v) in pairs]
             self.wfile.write(str.encode(decoded[0][1]))
+            for i in decoded:
+                if i[0] == "str":
+                    lower = len(re.findall("[a-z]",i[1]))
+                    upper= len(re.findall("[A-Z]",i[1]))
+                    digits= len(re.findall("[0-9]",i[1]))
+                    allNormal=lower+upper+digits
+                    other = len(i[1])-allNormal
+                    self.wfile.write(str.encode(str(other)))
+                    
+
 
         else:
             super().do_GET()
