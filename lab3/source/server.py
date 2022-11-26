@@ -3,6 +3,7 @@ import http.server
 import socketserver
 import os
 import re
+import json
 from urllib.parse import urlparse, unquote_plus
 from datetime import datetime
 #print('source code for "http.server":', http.server.__file__)
@@ -39,8 +40,10 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                     allNormal=lower+upper+digits
                     other = len(i[1])-allNormal
                     self.wfile.write(str.encode(str(other)))
-                    
-
+                    saveText = {"lowercase":lower, "uppercase":upper, "digits":digits,"special": other}
+                   
+                    with open('data.json', 'w') as f:
+                        json.dump({"test":"test"}, f)
 
         else:
             super().do_GET()
